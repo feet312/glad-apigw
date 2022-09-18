@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.kt.icis.apidoc.ApidocApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.843 s <<< FAILURE! - in com.kt.icis.apidoc.ApidocApplicationTests
+contextLoads  Time elapsed: 0.016 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.cloud.kubernetes.commons.config.NamespaceResolutionFailedException: unresolved namespace
+

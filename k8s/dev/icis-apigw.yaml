@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: icis-apigw-deploy
+  namespace: sa-app
+  labels:
+    app: icis-apigw
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: icis-apigw
+  template:
+    metadata:
+      labels:
+        app: icis-apigw
+    spec:
+      containers:
+      - name: icis-apigw
+        image: icis-apigw  # on server
+        # image: commonui
+        ports: 
+        - name: http
+          containerPort: 8800
+#        volumeMounts:
+#          - name: commonui-config
+#            mountPath: /etc/config/configMap.yaml
+#      volumes:
+#        - name: commonui-config
+#          hostPath: 
+#            path: /Users/sehwan/ICIS-TR/spring-openapi-k8s/openapi-common-ui/src/main/resources/configMap.yaml
+          
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: icis-apigw-service
+  namespace: icis-apigw
+spec:
+  # type: NodePort
+  selector:
+    app: icis-apigw
+  ports:
+    - protocol: TCP
+      port: 8800
+      targetPort: http
+      # nodePort: 32180
+
+  
+  

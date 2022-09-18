@@ -1,0 +1,35 @@
+####################
+### dev
+####################
+server:
+  port: 8800
+spring:
+  config:
+    import: "optional:consul:"
+  cloud:
+    consul:
+      host: http://consul-server.sa-dedi.svc
+      port: 8500
+      config:
+        enabled: true
+        prefixes: ${spring.application.name}-config
+        default-context: config
+        profile-separator: "-"
+        format: YAML
+        data-key: application
+        watch:
+          enabled: true
+          # Refresh rate in milliseconds, default 1000
+          delay: 1000
+      discovery:
+        register: true
+        instance-id: ${spring.application.name}-${random.uuid}
+        service-name: web:${spring.application.name}
+        port: ${server.port}
+        prefer-ip-address: true
+        ip-address: ${spring.cloud.client.ip-address}
+        
+        ### healthCheckPath를 설정하지 않으면 spring-actuator 를 활용한다.
+        health-check-path: /system/healthz
+        register-health-check: true
+        health-check-critical-timeout: "1m"

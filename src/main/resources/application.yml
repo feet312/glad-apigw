@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: icis-apigw
+  profiles:
+    active: local
+  banner: 
+    location: "classpath:config/app-banner.txt"
